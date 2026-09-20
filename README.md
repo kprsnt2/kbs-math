@@ -1,6 +1,6 @@
 # The KBS Calendar Method (Kadasi Bhoomaiah System) 📐
 
-> **Reinvented by Sri Kadasi Bhoomaiah (Retd. MEO, 2013):**  
+> **Reinvented by My Father Sri Kadasi Bhoomaiah (Retd. MEO, 2013):**  
 > Inspired by the classical calendar formula learned during his **B.Ed in 1980**, Sri Bhoomaiah taught and preserved mental mathematics across his career as a School Assistant, Mathematics Teacher, and Mandal Educational Officer (MEO). He **amended the month codes** and **reinvented the method** to calibrate it for our current 21st century (2000&ndash;2099) with **zero century offset** &mdash; making calendar math faster and more intuitive for modern students.
 
 ## 🌟 Overview & Mathematical Verification
