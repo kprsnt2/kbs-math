@@ -353,16 +353,24 @@
 
   // --- Copy & Share Helpers ---
 
+  function getShareUrl() {
+    return (window.location && window.location.origin && window.location.origin.startsWith("http"))
+      ? window.location.origin + window.location.pathname
+      : "https://kprsnt2.github.io/kbs-math/";
+  }
+
   function copyBreakdownText() {
     const year = parseInt(yearInput.value, 10);
     const month = parseInt(monthInput.value, 10);
     const day = parseInt(dayInput.value, 10);
     const res = calculateKBS(year, month, day);
+    const shareUrl = getShareUrl();
 
     const text = `📐 The KBS Calendar Mental Math Breakdown:
-Invented by Sri Kadasi Bhoomaiah (Retd. MEO, 2013)
+Reinvented by Sri Kadasi Bhoomaiah (Retd. MEO, 2013)
 Date: ${res.day} ${MONTH_NAMES[res.month]} ${res.year}
 Day of Week: ${res.dayName} (Code ${res.dayIndex})
+
 Steps:
 1. Year 2 digits (${res.yy}) ÷ 7 remainder = ${res.rem7}
 2. Year 2 digits (${res.yy}) ÷ 4 quotient = ${res.quot4}
@@ -374,7 +382,9 @@ Steps:
 Total Sum = ${res.rem7} + ${res.quot4} + ${res.day} + ${res.mCode} + ${res.cCode} ${res.leapAdjust !== 0 ? '- 1' : ''} = ${res.rawSum}
 Final Remainder: ${res.rawSum} ÷ 7 = Remainder ${res.dayIndex} -> ${res.dayName}
 
-Preserved in honor of Sri Kadasi Bhoomaiah (Retd. MEO, 2013; School Assistant & Math Teacher).`;
+🔗 Try it online: ${shareUrl}
+
+Honoring Sri Kadasi Bhoomaiah (Retd. MEO, 2013; School Assistant & Math Teacher).`;
 
     navigator.clipboard.writeText(text).then(() => {
       const origText = copyBreakdownBtn.innerHTML;
@@ -392,10 +402,12 @@ Preserved in honor of Sri Kadasi Bhoomaiah (Retd. MEO, 2013; School Assistant & 
     const month = parseInt(monthInput.value, 10);
     const day = parseInt(dayInput.value, 10);
     const res = calculateKBS(year, month, day);
+    const shareUrl = getShareUrl();
 
     const msg = `🗓️ *The KBS Calendar Method:*
 *Date:* ${res.day} ${MONTH_NAMES[res.month]} ${res.year}
-*Day:* ${res.dayName}
+*Day:* *${res.dayName}*
+
 *Formula:*
 • Year ${res.yy} ÷ 7 = Remainder ${res.rem7}
 • Year ${res.yy} ÷ 4 = ${res.quot4}
@@ -405,7 +417,9 @@ Preserved in honor of Sri Kadasi Bhoomaiah (Retd. MEO, 2013; School Assistant & 
 ${res.leapAdjust !== 0 ? '• Leap Jan/Feb = -1\n' : ''}
 *Total:* ${res.rawSum} ÷ 7 = Remainder *${res.dayIndex} (${res.dayName})*!
 
-_Invented by Sri Kadasi Bhoomaiah (Retd. MEO 2013, School Assistant & Math Teacher)._`;
+🔗 *Try it yourself here:* ${shareUrl}
+
+_Reinvented by Sri Kadasi Bhoomaiah (Retd. MEO 2013, School Assistant & Math Teacher)._`;
 
     const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`;
     window.open(url, "_blank");
