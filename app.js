@@ -62,6 +62,7 @@
    * 1800s: 2 (or -5 mod 7)
    * 1700s: 4 (or -3 mod 7)
    * 1600s: 6 (or -1 mod 7)
+   */
   function getCenturyCode(year) {
     const century = Math.floor(year / 100);
     const rem = ((century % 4) + 4) % 4; // 0, 1, 2, 3
@@ -201,10 +202,8 @@
     let year = parseInt(yearInput.value, 10);
     let month = parseInt(monthInput.value, 10);
     let day = parseInt(dayInput.value, 10);
-
     if (isNaN(year) || year < 1000 || year > 3000) year = 1947;
     if (isNaN(month) || month < 1 || month > 12) month = 8;
-
     // Validate day of month
     const maxDays = getDaysInMonth(year, month);
     if (day > maxDays) {
@@ -233,7 +232,6 @@
     if (resultDayName) resultDayName.textContent = res.dayName;
     if (resultCodeTag) resultCodeTag.innerHTML = `<span class="congruence-symbol">&equiv;</span> ${res.dayIndex} (mod 7)`;
     if (resultFullDateText) resultFullDateText.textContent = `${res.day} ${MONTH_NAMES[res.month]} ${res.year} • Gregorian Calendar`;
-
     // Update Modulo 7 Dial
     if (dialPointerGroup) {
       const targetAngle = res.dayIndex * (360 / 7);
@@ -626,13 +624,14 @@ _Invented by Sri Kadasi Bhoomaiah (Retd. MEO 2013, School Assistant & Math Teach
   // --- Setup Event Listeners ---
 
   function initEvents() {
-    // Inputs change
+    // Inputs change (listen to both input and change events)
     [dayInput, monthInput, yearInput].forEach(input => {
       input.addEventListener("input", updateCalculator);
+      input.addEventListener("change", updateCalculator);
     });
 
-    // Native date picker change
-    nativeDateInput.addEventListener("change", (e) => {
+    // Native date picker change and input
+    const handleNativeDate = (e) => {
       const val = e.target.value;
       if (!val) return;
       const parts = val.split("-");
@@ -642,8 +641,9 @@ _Invented by Sri Kadasi Bhoomaiah (Retd. MEO 2013, School Assistant & Math Teach
         dayInput.value = parseInt(parts[2], 10);
         updateCalculator();
       }
-    });
-
+    };
+    nativeDateInput.addEventListener("change", handleNativeDate);
+    nativeDateInput.addEventListener("input", handleNativeDate);
     // Presets
     document.querySelectorAll(".preset-btn[data-date]").forEach(btn => {
       btn.addEventListener("click", () => {
