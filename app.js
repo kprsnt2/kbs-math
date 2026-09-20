@@ -1,6 +1,7 @@
 /**
  * The KBS Calendar Method - Application Logic
- * Invented by Sri Kadasi Bhoomaiah (Retd. MEO, 2013; School Assistant & Math Teacher)
+ * Preserved, mastered, and taught by Sri Kadasi Bhoomaiah (Retd. MEO, 2013; School Assistant & Math Teacher)
+ * Classical mental calendar mathematics (Lewis Carroll, 1887; Indian B.Ed Curriculum, 1980)
  * Pure Vanilla JavaScript - 100% Zero Dependencies - Fast & Offline
  */
 

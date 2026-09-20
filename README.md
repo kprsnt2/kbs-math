@@ -1,8 +1,7 @@
 # The KBS Calendar Method (Kadasi Bhoomaiah System) 📐
 
-> **Invented by Sri Kadasi Bhoomaiah:**  
-> Retired **Mandal Educational Officer (MEO)** in 2013. Sri Bhoomaiah served passionately as a Mathematics Teacher and School Assistant from the start of his career, and dedicated his final 10 years of service as MEO leading schools and teachers. He recently invented and formulated this ingenious mental math calendar method to empower students, educators, and mathematics enthusiasts worldwide.
-
+> **Preserved, Mastered & Taught by Sri Kadasi Bhoomaiah:**  
+> Retired **Mandal Educational Officer (MEO)** in 2013. Sri Bhoomaiah learned this classical mental calendar method during his **B.Ed in 1980**. Throughout his 30+ year teaching career as a School Assistant and Mathematics Teacher, and his decade of educational leadership as MEO, he practiced, taught, and preserved this technique. He recently reconstructed and formulated the complete system from memory to share with learners, teachers, and mathematics lovers everywhere.
 ---
 
 ## 🌟 Overview & Mathematical Verification
@@ -87,6 +86,20 @@ $$(Y \bmod 4 == 0 \text{ and } Y \bmod 100 \ne 0) \quad\text{OR}\quad (Y \bmod 4
 
 ---
 
+## 🏛️ Mathematical Pedigree & History
+
+This mental calendar arithmetic algorithm has a fascinating history spanning over 135 years:
+
+1. **Lewis Carroll (Charles Lutwidge Dodgson, 1887):**
+   On March 31, 1887, the Oxford mathematician and author of *Alice in Wonderland* published this mental calendar method in the journal *Nature* (*"To Find the Day of the Week for Any Given Date"*). Carroll introduced the exact century rule $(3 - (\text{Century} \bmod 4)) \times 2 \pmod 7$, the month codes with $\text{January} = 0$, Sunday $= 0$, and the $-1$ leap day deduction for January and February.
+
+2. **Indian B.Ed & Teacher Training Curricula (1970s & 1980s):**
+   In India, educational institutions streamlined the method with modular arithmetic for Bachelor of Education (B.Ed) mathematics pedagogy courses under "Recreational Mathematics". It was taught to aspiring teachers to demonstrate mental math tricks to school students.
+
+3. **Sri Kadasi Bhoomaiah's Role:**
+   Sri Bhoomaiah studied and mastered the method during his B.Ed in 1980. Across decades of service at ZPSS and as MEO, he kept the method alive through classroom demonstrations, and recently reconstructed and codified the exact rules from memory.
+
+---
 ## 📱 Web Application Features
 
 The included web app (`index.html`, `styles.css`, `app.js`) is completely self-contained with **zero external dependencies**:
