@@ -86,18 +86,18 @@
               <div class="input-field">
                 <label for="monthInput">Month</label>
                 <select id="monthInput">
-                  <option value="1">January (0)</option>
-                  <option value="2">February (3)</option>
-                  <option value="3">March (3)</option>
-                  <option value="4">April (6)</option>
-                  <option value="5">May (1)</option>
-                  <option value="6">June (4)</option>
-                  <option value="7">July (6)</option>
-                  <option value="8" selected>August (2)</option>
-                  <option value="9">September (5)</option>
-                  <option value="10">October (0)</option>
-                  <option value="11">November (3)</option>
-                  <option value="12">December (5)</option>
+                  <option value="1">January (6)</option>
+                  <option value="2">February (2)</option>
+                  <option value="3">March (2)</option>
+                  <option value="4">April (5)</option>
+                  <option value="5">May (0)</option>
+                  <option value="6">June (3)</option>
+                  <option value="7">July (5)</option>
+                  <option value="8" selected>August (1)</option>
+                  <option value="9">September (4)</option>
+                  <option value="10">October (6)</option>
+                  <option value="11">November (2)</option>
+                  <option value="12">December (4)</option>
                 </select>
               </div>
 
@@ -271,8 +271,8 @@
             <div class="quiz-range-select">
               <label for="quizRange">Century Range:</label>
               <select id="quizRange">
-                <option value="1900">1900 – 1999 (Classic Formula, Century Code = 0)</option>
-                <option value="2000">2000 – 2099 (Modern Era, Minus 1 Rule)</option>
+                <option value="2000">2000 – 2099 (Sri Bhoomaiah's 21st-Century Modern Base, Offset = 0)</option>
+                <option value="1900">1900 – 1999 (20th Century, Offset = +1)</option>
                 <option value="all">All Centuries (1600 – 2400)</option>
               </select>
             </div>
@@ -318,7 +318,7 @@
               <h2>Sri Kadasi Bhoomaiah's Month Value Codes</h2>
               <span class="info-pill">12 Months</span>
             </div>
-            <p class="section-desc">Sri Kadasi Bhoomaiah organized the months with these memorable numbers:</p>
+            <p class="section-desc">Sri Kadasi Bhoomaiah amended the classical codes so that the 21st century (2000&ndash;2099) requires <strong>zero century offset</strong>:</p>
 
             <div class="table-responsive">
               <table class="data-table month-table">
@@ -330,19 +330,18 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="code-0"><td><strong>January</strong></td><td><span class="code-badge">0</span></td><td>Year begins with zero; pairs with October</td></tr>
-                  <tr class="code-3"><td><strong>February</strong></td><td><span class="code-badge">3</span></td><td>Feb (3 letters "F-e-b"), matches Mar & Nov</td></tr>
-                  <tr class="code-3"><td><strong>March</strong></td><td><span class="code-badge">3</span></td><td>Since Feb has 28 days (divisible by 7), March is same (3)</td></tr>
-                  <tr class="code-6"><td><strong>April</strong></td><td><span class="code-badge">6</span></td><td>Pairs with July (summer/spring sixes)</td></tr>
-                  <tr class="code-1"><td><strong>May</strong></td><td><span class="code-badge">1</span></td><td>May Day is 1st of May! (Code = 1)</td></tr>
-                  <tr class="code-4"><td><strong>June</strong></td><td><span class="code-badge">4</span></td><td>"JUNE" has 4 letters! (Code = 4)</td></tr>
-                  <tr class="code-6"><td><strong>July</strong></td><td><span class="code-badge">6</span></td><td>Pairs with April</td></tr>
-                  <tr class="code-2"><td><strong>August</strong></td><td><span class="code-badge">2</span></td><td>"Au-gust" has 2 syllables</td></tr>
-                  <tr class="code-5"><td><strong>September</strong></td><td><span class="code-badge">5</span></td><td>Pairs with December (Autumn/Winter fives)</td></tr>
-                  <tr class="code-0"><td><strong>October</strong></td><td><span class="code-badge">0</span></td><td>"O" in October looks like a 0!</td></tr>
-                  <tr class="code-3"><td><strong>November</strong></td><td><span class="code-badge">3</span></td><td>Triad with February and March</td></tr>
-                  <tr class="code-5"><td><strong>December</strong></td><td><span class="code-badge">5</span></td><td>Pairs with September</td></tr>
-                </tbody>
+                  <tr class="code-6"><td><strong>January</strong></td><td><span class="code-badge">6</span></td><td>Amended modern code; pairs with October</td></tr>
+                  <tr class="code-2"><td><strong>February</strong></td><td><span class="code-badge">2</span></td><td>Triad with March and November</td></tr>
+                  <tr class="code-2"><td><strong>March</strong></td><td><span class="code-badge">2</span></td><td>Matches February (since Feb has 28 days &equiv; 0 mod 7)</td></tr>
+                  <tr class="code-5"><td><strong>April</strong></td><td><span class="code-badge">5</span></td><td>Pairs with July (spring/summer fives)</td></tr>
+                  <tr class="code-0"><td><strong>May</strong></td><td><span class="code-badge">0</span></td><td>May Day starts at zero! (Code = 0)</td></tr>
+                  <tr class="code-3"><td><strong>June</strong></td><td><span class="code-badge">3</span></td><td>"JUNE" has code 3</td></tr>
+                  <tr class="code-5"><td><strong>July</strong></td><td><span class="code-badge">5</span></td><td>Pairs with April</td></tr>
+                  <tr class="code-1"><td><strong>August</strong></td><td><span class="code-badge">1</span></td><td>August code is 1</td></tr>
+                  <tr class="code-4"><td><strong>September</strong></td><td><span class="code-badge">4</span></td><td>Pairs with December (autumn/winter fours)</td></tr>
+                  <tr class="code-6"><td><strong>October</strong></td><td><span class="code-badge">6</span></td><td>Pairs with January</td></tr>
+                  <tr class="code-2"><td><strong>November</strong></td><td><span class="code-badge">2</span></td><td>Triad with February and March</td></tr>
+                  <tr class="code-4"><td><strong>December</strong></td><td><span class="code-badge">4</span></td><td>Pairs with September</td></tr>
               </table>
             </div>
 
@@ -350,13 +349,13 @@
             <div class="grouped-codes-box">
               <h3>Grouped by Number for Easy Recitation:</h3>
               <ul class="grouped-list">
-                <li><span class="num-chip">0</span> <strong>Jan, Oct</strong> &rarr; <em>"Jan and Oct start at 0"</em></li>
-                <li><span class="num-chip">1</span> <strong>May</strong> &rarr; <em>"1st of May"</em></li>
-                <li><span class="num-chip">2</span> <strong>Aug</strong> &rarr; <em>"2 syllables"</em></li>
-                <li><span class="num-chip">3</span> <strong>Feb, Mar, Nov</strong> &rarr; <em>"Trio of 3s"</em></li>
-                <li><span class="num-chip">4</span> <strong>Jun</strong> &rarr; <em>"4 letters in June"</em></li>
-                <li><span class="num-chip">5</span> <strong>Sep, Dec</strong> &rarr; <em>"Fives in Autumn/Winter"</em></li>
-                <li><span class="num-chip">6</span> <strong>Apr, Jul</strong> &rarr; <em>"Sixes in Spring & Summer"</em></li>
+                <li><span class="num-chip">0</span> <strong>May</strong> &rarr; <em>"May starts at 0"</em></li>
+                <li><span class="num-chip">1</span> <strong>Aug</strong> &rarr; <em>"August is 1"</em></li>
+                <li><span class="num-chip">2</span> <strong>Feb, Mar, Nov</strong> &rarr; <em>"Trio of 2s"</em></li>
+                <li><span class="num-chip">3</span> <strong>Jun</strong> &rarr; <em>"June is 3"</em></li>
+                <li><span class="num-chip">4</span> <strong>Sep, Dec</strong> &rarr; <em>"Autumn/Winter 4s"</em></li>
+                <li><span class="num-chip">5</span> <strong>Apr, Jul</strong> &rarr; <em>"Spring/Summer 5s"</em></li>
+                <li><span class="num-chip">6</span> <strong>Jan, Oct</strong> &rarr; <em>"Jan & Oct are 6"</em></li>
               </ul>
             </div>
           </div>
@@ -369,7 +368,7 @@
             </div>
 
             <p class="section-desc">
-              Sri Kadasi Bhoomaiah calibrated the base formula for the <strong>1900s (Century Offset = 0)</strong>. Here is how it effortlessly extends across centuries:
+              By amending the month codes by &minus;1, Sri Bhoomaiah calibrated the <strong>2000s as the Zero-Offset Base</strong>. Here is how centuries work:
             </p>
 
             <div class="table-responsive">
@@ -384,34 +383,34 @@
                 </thead>
                 <tbody>
                   <tr class="highlight-row">
-                    <td><strong>1900s</strong></td>
-                    <td>1900 – 1999</td>
-                    <td><span class="code-badge badge-green">0</span></td>
-                    <td><strong>Base Formula!</strong> (No adjustment needed)</td>
-                  </tr>
-                  <tr class="highlight-row">
                     <td><strong>2000s</strong></td>
                     <td>2000 – 2099</td>
-                    <td><span class="code-badge badge-blue">-1 (or +6)</span></td>
-                    <td><strong>"Minus 1 Rule"</strong> &mdash; simply subtract 1!</td>
+                    <td><span class="code-badge badge-green">0</span></td>
+                    <td><strong>Sri Bhoomaiah's Modern Base!</strong> (No adjustment needed for today!)</td>
+                  </tr>
+                  <tr class="highlight-row">
+                    <td><strong>1900s</strong></td>
+                    <td>1900 – 1999</td>
+                    <td><span class="code-badge badge-blue">+1</span></td>
+                    <td>Add 1 (or subtract 6)</td>
                   </tr>
                   <tr>
                     <td><strong>1800s</strong></td>
                     <td>1800 – 1899</td>
-                    <td><span class="code-badge">+2 (or -5)</span></td>
-                    <td>Add 2 (or subtract 5)</td>
+                    <td><span class="code-badge">+3</span></td>
+                    <td>Add 3 (or subtract 4)</td>
                   </tr>
                   <tr>
                     <td><strong>1700s</strong></td>
                     <td>1700 – 1799</td>
-                    <td><span class="code-badge">+4 (or -3)</span></td>
-                    <td>Add 4 (or subtract 3)</td>
+                    <td><span class="code-badge">+5</span></td>
+                    <td>Add 5 (or subtract 2)</td>
                   </tr>
                   <tr>
                     <td><strong>1600s</strong></td>
                     <td>1600 – 1699</td>
-                    <td><span class="code-badge">+6 (or -1)</span></td>
-                    <td>Add 6 (or subtract 1)</td>
+                    <td><span class="code-badge">0</span></td>
+                    <td>Offset 0</td>
                   </tr>
                 </tbody>
               </table>
@@ -419,7 +418,7 @@
 
             <div class="note-box">
               <strong>The 400-Year Cycle Pattern:</strong>
-              <p>Because the Gregorian calendar repeats every 400 years, the century offsets cycle perpetually: <code>6 &rarr; 4 &rarr; 2 &rarr; 0</code> (or <code>-1 &rarr; -3 &rarr; -5 &rarr; 0</code>)!</p>
+              <p>Because the Gregorian calendar repeats every 400 years, the century offsets cycle perpetually: <code>0 &rarr; 5 &rarr; 3 &rarr; 1 &rarr; 0</code> (2000s = 0, 2100s = 5, 2200s = 3, 2300s = 1)!</p>
             </div>
 
             <!-- Day Codes Table -->

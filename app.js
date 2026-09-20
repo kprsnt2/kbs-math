@@ -10,18 +10,18 @@
 
   // --- Constants & Data ---
   const MONTH_CODES = {
-    1: 0,  // January
-    2: 3,  // February
-    3: 3,  // March
-    4: 6,  // April
-    5: 1,  // May
-    6: 4,  // June
-    7: 6,  // July
-    8: 2,  // August
-    9: 5,  // September
-    10: 0, // October
-    11: 3, // November
-    12: 5  // December
+    1: 6,  // January
+    2: 2,  // February
+    3: 2,  // March
+    4: 5,  // April
+    5: 0,  // May
+    6: 3,  // June
+    7: 5,  // July
+    8: 1,  // August
+    9: 4,  // September
+    10: 6, // October
+    11: 2, // November
+    12: 4  // December
   };
 
   const MONTH_NAMES = [
@@ -58,16 +58,17 @@
 
   /**
    * Calculate century offset (Gregorian calendar 400-year cycle):
-   * 1900s: 0 (The KBS Base by Sri Kadasi Bhoomaiah)
-   * 2000s: 6 (or -1 mod 7)
-   * 1800s: 2 (or -5 mod 7)
-   * 1700s: 4 (or -3 mod 7)
-   * 1600s: 6 (or -1 mod 7)
+   * Calibrated with Sri Kadasi Bhoomaiah's 21st-century modern base:
+   * 2000s: 0 (Modern Base - No offset needed for current era!)
+   * 1900s: 1
+   * 1800s: 3
+   * 1700s: 5
+   * 1600s: 0
    */
   function getCenturyCode(year) {
     const century = Math.floor(year / 100);
     const rem = ((century % 4) + 4) % 4; // 0, 1, 2, 3
-    return (2 * (3 - rem)) % 7;
+    return { 0: 0, 1: 5, 2: 3, 3: 1 }[rem];
   }
 
   /**
@@ -246,11 +247,11 @@
     }
     // Update Century Badge
     const century = Math.floor(year / 100);
-    if (century === 19) {
-      centuryBadge.textContent = "1900s (Classic KBS Base • Code = 0)";
+    if (century === 20) {
+      centuryBadge.textContent = "2000s (Modern 21st-Century Base • Offset = 0)";
       centuryBadge.className = "century-pill badge-green";
-    } else if (century === 20) {
-      centuryBadge.textContent = "2000s (Modern Era • Minus 1 Rule)";
+    } else if (century === 19) {
+      centuryBadge.textContent = "1900s (20th Century • Offset = +1)";
       centuryBadge.className = "century-pill badge-blue";
     } else {
       centuryBadge.textContent = `${century}00s Century (Offset = ${res.cCode})`;
@@ -314,10 +315,10 @@
         num: "Step V",
         title: "Century Offset",
         math: `${Math.floor(res.year / 100)}00s = ${res.cCode}`,
-        desc: res.year >= 1900 && res.year < 2000
-          ? `For 1900–1999 (Sri Bhoomaiah's base century), the offset is <span class="step-value-badge">0</span>!`
-          : res.year >= 2000 && res.year < 2100
-            ? `For 2000–2099, apply the <strong>"Minus 1 Rule"</strong>: offset is <span class="step-value-badge">-1 (or +6)</span>.`
+        desc: res.year >= 2000 && res.year < 2100
+          ? `For 2000–2099 (Sri Bhoomaiah's modern 21st-century base), the offset is <span class="step-value-badge">0</span>! No century adjustment needed.`
+          : res.year >= 1900 && res.year < 2000
+            ? `For 1900–1999 (20th century), the offset is <span class="step-value-badge">+1</span>.`
             : `Century ${Math.floor(res.year / 100)}00s code is <span class="step-value-badge">${res.cCode}</span>.`
       },
       {

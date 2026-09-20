@@ -30,49 +30,43 @@ $$\text{Day of the Week} = \text{Total Sum} \bmod 7$$
 
 ---
 
-### 2. Sri Kadasi Bhoomaiah's Month Value Codes
+### 2. Sri Kadasi Bhoomaiah's Modern 21st-Century Month Value Codes
 | Month | Code | Why It Works / Memory Trick |
 | :--- | :---: | :--- |
-| **January** | **0** | Year begins with 0; pairs with October |
-| **February** | **3** | $0 + 31\text{ days of Jan} \equiv 3 \pmod 7$ |
-| **March** | **3** | Feb has 28 days $\equiv 0 \pmod 7$, so March remains 3 |
-| **April** | **6** | $3 + 31\text{ days of Mar} \equiv 6 \pmod 7$ |
-| **May** | **1** | May Day is 1st of May! ($6 + 30 \equiv 1 \pmod 7$) |
-| **June** | **4** | "JUNE" has 4 letters ($1 + 31 \equiv 4 \pmod 7$) |
-| **July** | **6** | Pairs with April ($4 + 30 \equiv 6 \pmod 7$) |
-| **August** | **2** | "Au-gust" has 2 syllables ($6 + 31 \equiv 2 \pmod 7$) |
-| **September** | **5** | Pairs with December ($2 + 31 \equiv 5 \pmod 7$) |
-| **October** | **0** | "O" looks like 0 ($5 + 30 \equiv 0 \pmod 7$) |
-| **November** | **3** | Triad with Feb & Mar ($0 + 31 \equiv 3 \pmod 7$) |
-| **December** | **5** | Pairs with September ($3 + 30 \equiv 5 \pmod 7$) |
+| **January** | **6** | Amended code ($0 - 1 \equiv 6$); pairs with October |
+| **February** | **2** | Triad with March and November |
+| **March** | **2** | Matches February (Feb has 28 days $\equiv 0 \pmod 7$) |
+| **April** | **5** | Pairs with July (spring/summer fives) |
+| **May** | **0** | May starts at 0! |
+| **June** | **3** | June code is 3 |
+| **July** | **5** | Pairs with April |
+| **August** | **1** | August code is 1 |
+| **September** | **4** | Pairs with December |
+| **October** | **6** | Pairs with January |
+| **November** | **2** | Triad with February & March |
+| **December** | **4** | Pairs with September |
 
 **Grouped for student recitation:**
-- **0:** Jan, Oct
-- **1:** May
-- **2:** Aug
-- **3:** Feb, Mar, Nov
-- **4:** Jun
-- **5:** Sep, Dec
-- **6:** Apr, Jul
+- **0:** May &rarr; *"May starts at 0"*
+- **1:** Aug &rarr; *"August is 1"*
+- **2:** Feb, Mar, Nov &rarr; *"Trio of 2s"*
+- **3:** Jun &rarr; *"June is 3"*
+- **4:** Sep, Dec &rarr; *"Autumn/Winter 4s"*
+- **5:** Apr, Jul &rarr; *"Spring/Summer 5s"*
+- **6:** Jan, Oct &rarr; *"January & October are 6"*
 
 ---
 
-### 3. Century Offsets & The "Minus 1" Rule
+### 3. Sri Bhoomaiah's 21st-Century Zero-Offset Base
 
-Sri Kadasi Bhoomaiah calibrated his base formula for the **1900s (1900–1999)**, where **Century Offset = 0**.
+By amending the classical codes by $-1$, Sri Kadasi Bhoomaiah calibrated **the current 21st Century (2000–2099) as the Zero-Offset Base**:
+- **2000 – 2099:** Century Offset = **0** *(No adjustment needed for our modern era!)*
+- **1900 – 1999:** Century Offset = **+1**
+- **1800 – 1899:** Century Offset = **+3**
+- **1700 – 1799:** Century Offset = **+5**
+- **1600 – 1699:** Century Offset = **0**
 
-Because of the 400-year Gregorian cycle:
-- **1900 – 1999:** Century Offset = **0** *(The KBS Base Formula)*
-- **2000 – 2099:** Century Offset = **-1** *(or +6)* $\to$ **Sri Bhoomaiah's "Minus 1 Rule"!**
-- **1800 – 1899:** Century Offset = **+2** *(or -5)*
-- **1700 – 1799:** Century Offset = **+4** *(or -3)*
-- **1600 – 1699:** Century Offset = **+6** *(or -1)*
-
-The 400-year perpetual cycle is: **6, 4, 2, 0** (or **-1, -3, -5, 0**).
-
-For any century $C = \lfloor \text{Year} / 100 \rfloor$:
-$$\text{Century Code} = (2 \times (3 - (C \bmod 4))) \bmod 7$$
-
+The 400-year perpetual cycle is: **0 &rarr; 5 &rarr; 3 &rarr; 1 &rarr; 0**.
 ---
 
 ### 4. Leap Year Adjustment (Jan & Feb)
