@@ -235,7 +235,7 @@
     // Update Modulo 7 Dial
     if (dialPointerGroup) {
       const targetAngle = res.dayIndex * (360 / 7);
-      dialPointerGroup.setAttribute("transform", `rotate(${targetAngle.toFixed(2)} 110 110)`);
+      dialPointerGroup.setAttribute("transform", `rotate(${targetAngle.toFixed(2)})`);
     }
     if (dialNodes) {
       dialNodes.forEach(node => {

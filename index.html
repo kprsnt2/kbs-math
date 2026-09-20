@@ -162,11 +162,13 @@
                   <!-- Dial track circle -->
                   <circle cx="110" cy="110" r="76" class="dial-track" />
                   <circle cx="110" cy="110" r="76" class="dial-track-inner" />
-                  <!-- Pointer arrow pointing to active day -->
-                  <g id="dialPointerGroup" class="dial-pointer-group" transform="rotate(257.14 110 110)">
-                    <line x1="110" y1="110" x2="110" y2="44" class="dial-pointer-line" />
-                    <polygon points="110,32 105,46 115,46" class="dial-pointer-head" />
-                    <circle cx="110" cy="110" r="8" class="dial-center-cap" />
+                  <!-- Pointer arrow pointing to active day (pivoted at center 110, 110) -->
+                  <g transform="translate(110, 110)">
+                    <g id="dialPointerGroup" class="dial-pointer-group" transform="rotate(257.14)">
+                      <line x1="0" y1="0" x2="0" y2="-44" class="dial-pointer-line" />
+                      <polygon points="0,-58 -6,-44 6,-44" class="dial-pointer-head" />
+                      <circle cx="0" cy="0" r="8" class="dial-center-cap" />
+                    </g>
                   </g>
                   <!-- 7 Day Nodes (0 to 6) -->
                   <g id="dialNodesGroup" class="dial-nodes-group">
