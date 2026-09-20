@@ -149,7 +149,13 @@ code {
 .site-container {
   max-width: 1120px;
   margin: 0 auto;
-  padding: 28px 16px 64px 16px;
+  padding: 24px 16px 64px 16px;
+}
+
+@media (max-width: 768px) {
+  .site-container {
+    padding: 12px 12px 48px 12px;
+  }
 }
 
 /* App Header */
@@ -162,7 +168,7 @@ code {
   background: var(--bg-surface);
   border: 1px solid var(--bg-card-border);
   border-radius: var(--radius-lg);
-  padding: 24px 28px;
+  padding: 22px 26px;
   box-shadow: var(--shadow-md);
   position: relative;
   overflow: hidden;
@@ -180,10 +186,9 @@ code {
 }
 
 .header-content {
-  flex: 1 1 480px;
+  flex: 1 1 auto;
   min-width: 0;
 }
-
 .badge-tag {
   display: inline-block;
   padding: 4px 14px;
@@ -221,35 +226,43 @@ code {
   flex-shrink: 0;
 }
 
-/* Mobile Header Responsiveness */
+/* Mobile Header Responsiveness - Compact & No Gaps */
 @media (max-width: 768px) {
   .app-header {
     flex-direction: column;
     align-items: stretch;
-    gap: 16px;
-    padding: 20px 16px;
+    justify-content: flex-start;
+    gap: 12px;
+    padding: 16px 14px;
+    margin-bottom: 16px;
   }
 
   .header-content {
     width: 100%;
+    flex: 0 0 auto;
+  }
+
+  .badge-tag {
+    margin-bottom: 6px;
   }
 
   .app-title {
-    font-size: 1.75rem;
+    font-size: 1.65rem;
     line-height: 1.2;
+    margin-bottom: 4px;
   }
 
   .app-subtitle {
-    font-size: 0.95rem;
+    font-size: 0.92rem;
+    line-height: 1.4;
+    margin-bottom: 0;
   }
-
   .header-controls {
     width: 100%;
     display: flex;
     flex-direction: row;
     gap: 8px;
   }
-
   .header-controls .btn {
     flex: 1 1 0;
     min-width: 0;

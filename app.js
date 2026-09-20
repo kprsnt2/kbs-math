@@ -354,9 +354,43 @@
   // --- Copy & Share Helpers ---
 
   function getShareUrl() {
-    return (window.location && window.location.origin && window.location.origin.startsWith("http"))
-      ? window.location.origin + window.location.pathname
-      : "https://kprsnt2.github.io/kbs-math/";
+    const origin = (window.location && window.location.origin) ? window.location.origin : "";
+    if (origin.startsWith("http")) {
+      return origin + window.location.pathname;
+    }
+    return "https://kprsnt2.github.io/kbs-math/";
+  }
+
+  function fallbackCopyText(text) {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    textArea.setAttribute("readonly", "");
+    textArea.style.position = "fixed";
+    textArea.style.top = "0";
+    textArea.style.left = "-9999px";
+    textArea.style.opacity = "0";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    let success = false;
+    try {
+      success = document.execCommand("copy");
+    } catch (err) {
+      console.warn("Fallback copy failed:", err);
+    }
+    document.body.removeChild(textArea);
+    return success;
+  }
+
+  function copyToClipboard(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      return navigator.clipboard.writeText(text).catch(() => {
+        const ok = fallbackCopyText(text);
+        return ok ? Promise.resolve() : Promise.reject(new Error("Copy failed"));
+      });
+    }
+    const ok = fallbackCopyText(text);
+    return ok ? Promise.resolve() : Promise.reject(new Error("Copy failed"));
   }
 
   function copyBreakdownText() {
@@ -365,6 +399,9 @@
     const day = parseInt(dayInput.value, 10);
     const res = calculateKBS(year, month, day);
     const shareUrl = getShareUrl();
+    let sumParts = `${res.rem7} + ${res.quot4} + ${res.day} + ${res.mCode}`;
+    if (res.cCode !== 0) sumParts += ` + ${res.cCode}`;
+    if (res.leapAdjust !== 0) sumParts += ` - 1`;
 
     const text = `📐 The KBS Calendar Mental Math Breakdown:
 Reinvented by Sri Kadasi Bhoomaiah (Retd. MEO, 2013)
@@ -379,19 +416,20 @@ Steps:
 5. Century Code (${Math.floor(res.year / 100)}00s) = ${res.cCode}
 6. Leap Adjustment (Jan/Feb) = ${res.leapAdjust}
 ----------------------------------------
-Total Sum = ${res.rem7} + ${res.quot4} + ${res.day} + ${res.mCode} + ${res.cCode} ${res.leapAdjust !== 0 ? '- 1' : ''} = ${res.rawSum}
+Total Sum = ${sumParts} = ${res.rawSum}
 Final Remainder: ${res.rawSum} ÷ 7 = Remainder ${res.dayIndex} -> ${res.dayName}
 
-🔗 Try it online: ${shareUrl}
+🔗 Try it online:
+${shareUrl}
 
 Honoring Sri Kadasi Bhoomaiah (Retd. MEO, 2013; School Assistant & Math Teacher).`;
 
-    navigator.clipboard.writeText(text).then(() => {
+    copyToClipboard(text).then(() => {
       const origText = copyBreakdownBtn.innerHTML;
-      copyBreakdownBtn.innerHTML = "✅ Copied to Clipboard!";
+      copyBreakdownBtn.innerHTML = "✅ Copied with Link!";
       setTimeout(() => {
         copyBreakdownBtn.innerHTML = origText;
-      }, 2000);
+      }, 2500);
     }).catch(() => {
       alert(text);
     });
@@ -417,12 +455,39 @@ Honoring Sri Kadasi Bhoomaiah (Retd. MEO, 2013; School Assistant & Math Teacher)
 ${res.leapAdjust !== 0 ? '• Leap Jan/Feb = -1\n' : ''}
 *Total:* ${res.rawSum} ÷ 7 = Remainder *${res.dayIndex} (${res.dayName})*!
 
-🔗 *Try it yourself here:* ${shareUrl}
+🔗 *Try it yourself here:*
+${shareUrl}
 
 _Reinvented by Sri Kadasi Bhoomaiah (Retd. MEO 2013, School Assistant & Math Teacher)._`;
 
-    const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`;
-    window.open(url, "_blank");
+    // 1. If mobile browser supports Web Share API, use native share dialog
+    const isMobile = /mobile|android|iphone|ipad|ipod/i.test(navigator.userAgent);
+    if (isMobile && navigator.share) {
+      navigator.share({
+        title: "The KBS Calendar Method",
+        text: msg,
+        url: shareUrl
+      }).catch((err) => {
+        if (err.name !== "AbortError") {
+          openWhatsAppDirect(msg);
+        }
+      });
+      return;
+    }
+
+    // 2. Direct universal WhatsApp wa.me link
+    openWhatsAppDirect(msg);
+  }
+
+  function openWhatsAppDirect(msg) {
+    const waUrl = `https://wa.me/?text=${encodeURIComponent(msg)}`;
+    const link = document.createElement("a");
+    link.href = waUrl;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 
   // --- Quiz & Classroom Challenge ---
