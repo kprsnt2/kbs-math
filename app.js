@@ -264,7 +264,7 @@
     if (res.leapAdjust !== 0) {
       sumString += ` - 1`;
     }
-    sumString += ` = ${res.rawSum} &rarr; ${res.rawSum} % 7 = <strong>${res.dayIndex} (${res.dayName})</strong>`;
+    sumString += ` = ${res.rawSum} &rarr; ${res.rawSum} ÷ 7 = Remainder <strong>${res.dayIndex} (${res.dayName})</strong>`;
     sumFormulaPreview.innerHTML = sumString;
 
     // Render Step-by-Step Cards
@@ -279,7 +279,7 @@
       • Month code: <code>${res.mCode}</code><br>
       ${res.cCode !== 0 ? `• Century offset: <code>${res.cCode}</code><br>` : ""}
       ${res.leapAdjust !== 0 ? `• Leap adjustment: <code>-1</code><br>` : ""}
-      <strong>Mental sum:</strong> <code>(${res.rem7} + ${res.quotMod7} + ${res.dayMod7} + ${res.mCode}${res.cCode !== 0 ? ' + ' + res.cCode : ''}${res.leapAdjust !== 0 ? ' - 1' : ''}) % 7 = ${res.dayIndex} &rarr; ${res.dayName}</code>!
+      <strong>Mental sum:</strong> <code>(${res.rem7} + ${res.quotMod7} + ${res.dayMod7} + ${res.mCode}${res.cCode !== 0 ? ' + ' + res.cCode : ''}${res.leapAdjust !== 0 ? ' - 1' : ''}) ÷ 7 &rarr; Remainder ${res.dayIndex} &rarr; ${res.dayName}</code>!
     `;
   }
 
@@ -370,7 +370,7 @@ Steps:
 6. Leap Adjustment (Jan/Feb) = ${res.leapAdjust}
 ----------------------------------------
 Total Sum = ${res.rem7} + ${res.quot4} + ${res.day} + ${res.mCode} + ${res.cCode} ${res.leapAdjust !== 0 ? '- 1' : ''} = ${res.rawSum}
-Final Remainder: ${res.rawSum} % 7 = ${res.dayIndex} -> ${res.dayName}
+Final Remainder: ${res.rawSum} ÷ 7 = Remainder ${res.dayIndex} -> ${res.dayName}
 
 Preserved in honor of Sri Kadasi Bhoomaiah (Retd. MEO, 2013; School Assistant & Math Teacher).`;
 
@@ -395,7 +395,7 @@ Preserved in honor of Sri Kadasi Bhoomaiah (Retd. MEO, 2013; School Assistant & 
 *Date:* ${res.day} ${MONTH_NAMES[res.month]} ${res.year}
 *Day:* ${res.dayName}
 *Formula:*
-• Year ${res.yy} % 7 = ${res.rem7}
+• Year ${res.yy} ÷ 7 = Remainder ${res.rem7}
 • Year ${res.yy} ÷ 4 = ${res.quot4}
 • Date = ${res.day}
 • Month (${MONTH_NAMES[res.month]}) = ${res.mCode}
@@ -485,13 +485,13 @@ _Invented by Sri Kadasi Bhoomaiah (Retd. MEO 2013, School Assistant & Math Teach
     quizHintBox.className = "quiz-hint-box";
     quizHintBox.innerHTML = `
       <strong>Teacher's Hint:</strong><br>
-      • Year digits: ${currentQuiz.yy} &rarr; ${currentQuiz.yy} % 7 = <strong>${currentQuiz.rem7}</strong><br>
+      • Year digits: ${currentQuiz.yy} ÷ 7 = Remainder <strong>${currentQuiz.rem7}</strong><br>
       • Leap quotient: ${currentQuiz.yy} ÷ 4 = <strong>${currentQuiz.quot4}</strong><br>
       • Date: <strong>${currentQuiz.day}</strong><br>
       • Month code (${MONTH_NAMES[currentQuiz.month]}): <strong>${currentQuiz.mCode}</strong><br>
       • Century offset: <strong>${currentQuiz.cCode}</strong><br>
       ${currentQuiz.leapAdjust !== 0 ? `• Leap Jan/Feb: <strong>-1</strong><br>` : ""}
-      • Sum = ${currentQuiz.rawSum} &rarr; ${currentQuiz.rawSum} % 7 = <strong>${currentQuiz.dayIndex} (${currentQuiz.dayName})</strong>
+      • Sum = ${currentQuiz.rawSum} ÷ 7 = Remainder <strong>${currentQuiz.dayIndex} (${currentQuiz.dayName})</strong>
     `;
     toggleHintBtn.textContent = "🙈 Hide hint";
   }
