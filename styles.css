@@ -156,13 +156,13 @@ code {
 .app-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  gap: 24px;
+  align-items: center;
+  gap: 20px;
   margin-bottom: 24px;
   background: var(--bg-surface);
   border: 1px solid var(--bg-card-border);
   border-radius: var(--radius-lg);
-  padding: 28px;
+  padding: 24px 28px;
   box-shadow: var(--shadow-md);
   position: relative;
   overflow: hidden;
@@ -179,6 +179,11 @@ code {
   background: linear-gradient(90deg, var(--cal-red) 0%, var(--brass-gold) 50%, var(--primary) 100%);
 }
 
+.header-content {
+  flex: 1 1 480px;
+  min-width: 0;
+}
+
 .badge-tag {
   display: inline-block;
   padding: 4px 14px;
@@ -190,7 +195,7 @@ code {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   border-radius: var(--radius-full);
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .app-title {
@@ -198,45 +203,134 @@ code {
   font-weight: 900;
   line-height: 1.15;
   margin-bottom: 6px;
+  word-wrap: break-word;
 }
 
 .app-subtitle {
   font-size: 1.05rem;
   color: var(--text-secondary);
-  margin-bottom: 16px;
-}
-
-/* Dedication Box */
-.dedication-card {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  background: var(--math-green-light);
-  border-left: 4px solid var(--primary);
-  border-top: 1px solid var(--bg-border-subtle);
-  border-right: 1px solid var(--bg-border-subtle);
-  border-bottom: 1px solid var(--bg-border-subtle);
-  padding: 16px 20px;
-  border-radius: var(--radius-md);
-  margin-top: 12px;
-}
-
-.dedication-icon {
-  font-size: 2.2rem;
-  line-height: 1;
-}
-
-.dedication-text {
-  font-size: 0.95rem;
-  color: var(--text-primary);
-  line-height: 1.55;
+  margin-bottom: 0;
+  line-height: 1.45;
 }
 
 .header-controls {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 10px;
-  align-items: flex-end;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Mobile Header Responsiveness */
+@media (max-width: 768px) {
+  .app-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    padding: 20px 16px;
+  }
+
+  .header-content {
+    width: 100%;
+  }
+
+  .app-title {
+    font-size: 1.75rem;
+    line-height: 1.2;
+  }
+
+  .app-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .header-controls {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .header-controls .btn {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 10px 8px;
+    font-size: 0.85rem;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+@media (max-width: 440px) {
+  .header-controls {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .header-controls .btn {
+    width: 100%;
+  }
+
+  .app-title {
+    font-size: 1.55rem;
+  }
+}
+
+/* Dedication Section at Bottom */
+.dedication-section {
+  margin-top: 32px;
+  margin-bottom: 24px;
+}
+
+.dedication-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  background: var(--math-green-light);
+  border-left: 5px solid var(--primary);
+  border-top: 1px solid var(--bg-card-border);
+  border-right: 1px solid var(--bg-card-border);
+  border-bottom: 1px solid var(--bg-card-border);
+  padding: 22px 24px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.dedication-icon {
+  font-size: 2.4rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.dedication-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.dedication-heading {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 6px;
+}
+
+[data-theme="dark"] .dedication-heading {
+  color: var(--brass-gold);
+}
+
+.dedication-text p {
+  font-size: 0.96rem;
+  color: var(--text-primary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .dedication-card {
+    flex-direction: column;
+    gap: 12px;
+    padding: 18px 16px;
+  }
 }
 
 /* Buttons */
