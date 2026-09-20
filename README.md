@@ -1,8 +1,7 @@
 # The KBS Calendar Method (Kadasi Bhoomaiah System) 📐
 
-> **Preserved, Mastered & Taught by Sri Kadasi Bhoomaiah:**  
-> Retired **Mandal Educational Officer (MEO)** in 2013. Sri Bhoomaiah learned this classical mental calendar method during his **B.Ed in 1980**. Throughout his 30+ year teaching career as a School Assistant and Mathematics Teacher, and his decade of educational leadership as MEO, he practiced, taught, and preserved this technique. He recently reconstructed and formulated the complete system from memory to share with learners, teachers, and mathematics lovers everywhere.
----
+> **Reinvented by Sri Kadasi Bhoomaiah (Retd. MEO, 2013):**  
+> Inspired by the classical calendar formula learned during his **B.Ed in 1980**, Sri Bhoomaiah taught and preserved mental mathematics across his career as a School Assistant, Mathematics Teacher, and Mandal Educational Officer (MEO). He **amended the month codes** and **reinvented the method** to calibrate it for our current 21st century (2000&ndash;2099) with **zero century offset** &mdash; making calendar math faster and more intuitive for modern students.
 
 ## 🌟 Overview & Mathematical Verification
 
@@ -90,9 +89,8 @@ This mental calendar arithmetic algorithm has a fascinating history spanning ove
 2. **Indian B.Ed & Teacher Training Curricula (1970s & 1980s):**
    In India, educational institutions streamlined the method with modular arithmetic for Bachelor of Education (B.Ed) mathematics pedagogy courses under "Recreational Mathematics". It was taught to aspiring teachers to demonstrate mental math tricks to school students.
 
-3. **Sri Kadasi Bhoomaiah's Role:**
-   Sri Bhoomaiah studied and mastered the method during his B.Ed in 1980. Across decades of service at ZPSS and as MEO, he kept the method alive through classroom demonstrations, and recently reconstructed and codified the exact rules from memory.
-
+3. **Sri Kadasi Bhoomaiah's Modern Reinvention:**
+   Sri Bhoomaiah studied the classical formula during his B.Ed in 1980. Inspired by the old method, he **amended the month values by &minus;1** to eliminate century offsets for the 21st century (2000&ndash;2099). This modern reinvention allows anyone living today to calculate the day of the week with zero century adjustments.
 ---
 ## 📱 Web Application Features
 
