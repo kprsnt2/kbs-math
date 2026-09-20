@@ -1,0 +1,1494 @@
+/* =========================================================
+   THE KBS CALENDAR METHOD - MATHEMATICS & CALENDAR HERITAGE THEME
+   Inspired by Academic Paper, Classrooms, Slate & Astronomical Clocks
+   Invented by Sri Kadasi Bhoomaiah (Retd. MEO, 2013)
+   ========================================================= */
+
+:root {
+  --font-serif: "Sitka Text", "Sitka Display", "Cambria", "Georgia", "Baskerville", "Times New Roman", serif;
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Cascadia Code", "Consolas", "Courier New", monospace;
+
+  /* --- LIGHT THEME: Antique Math Notebook / Quadrille Paper --- */
+  --bg-page: #f7f4ed;
+  --bg-grid-color: rgba(30, 45, 35, 0.04);
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #fdfbf7;
+  --bg-muted: #efeae0;
+  --bg-card-border: #d8d0bf;
+  --bg-border-subtle: #e6dfd1;
+
+  --text-primary: #1a2228;
+  --text-secondary: #3e4a52;
+  --text-muted: #67747e;
+  --text-inverse: #ffffff;
+
+  /* Calendar & Math Accents */
+  --cal-red: #a32a2b;
+  --cal-red-dark: #7a1c1d;
+  --cal-red-light: #fbebeb;
+  --math-green: #1b4937;
+  --math-green-light: #e6f4ed;
+  --brass-gold: #b37d1e;
+  --brass-gold-light: #fcf6e8;
+  --ink-blue: #1c3d5a;
+  --ink-blue-light: #eaf1f8;
+
+  --primary: #1b4937;
+  --primary-hover: #143729;
+  --primary-light: #e6f4ed;
+
+  --success: #15803d;
+  --success-bg: #eaf8ee;
+  --danger: #b91c1c;
+  --danger-bg: #fdeeee;
+  --warning: #b45309;
+  --warning-bg: #fff8e6;
+
+  --shadow-sm: 0 1px 3px rgba(40, 30, 20, 0.06);
+  --shadow-md: 0 4px 10px rgba(40, 30, 20, 0.08), 0 1px 3px rgba(40, 30, 20, 0.05);
+  --shadow-lg: 0 12px 24px -4px rgba(40, 30, 20, 0.12), 0 4px 8px -2px rgba(40, 30, 20, 0.06);
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+}
+
+/* --- DARK THEME: Authentic Classroom Slate Blackboard --- */
+[data-theme="dark"] {
+  --bg-page: #121915;
+  --bg-grid-color: rgba(255, 255, 255, 0.03);
+  --bg-surface: #18221d;
+  --bg-surface-elevated: #1e2c26;
+  --bg-muted: #24352e;
+  --bg-card-border: #2f443a;
+  --bg-border-subtle: #24352d;
+
+  --text-primary: #edf3ef;
+  --text-secondary: #c7d4cc;
+  --text-muted: #8e9f95;
+  --text-inverse: #121915;
+
+  /* Chalk & Slate Accents */
+  --cal-red: #ef4444;
+  --cal-red-dark: #b91c1c;
+  --cal-red-light: #3e1b1b;
+  --math-green: #34d399;
+  --math-green-light: #133a2a;
+  --brass-gold: #fbbf24;
+  --brass-gold-light: #382c0f;
+  --ink-blue: #60a5fa;
+  --ink-blue-light: #162a45;
+
+  --primary: #34d399;
+  --primary-hover: #6ee7b7;
+  --primary-light: #133a2a;
+
+  --success: #4ade80;
+  --success-bg: #143522;
+  --danger: #f87171;
+  --danger-bg: #451515;
+  --warning: #fcd34d;
+  --warning-bg: #42300b;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.6);
+}
+
+/* Base Resets */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-page);
+  /* Elegant quadrille graph paper grid */
+  background-image: 
+    linear-gradient(var(--bg-grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bg-grid-color) 1px, transparent 1px);
+  background-size: 22px 22px;
+  background-position: -1px -1px;
+  color: var(--text-primary);
+  line-height: 1.6;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-serif);
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+code, pre {
+  font-family: var(--font-mono);
+}
+
+code {
+  background-color: var(--bg-muted);
+  color: var(--cal-red);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  font-size: 0.9em;
+  border: 1px solid var(--bg-border-subtle);
+}
+
+[data-theme="dark"] code {
+  color: var(--brass-gold);
+}
+
+/* Layout Container */
+.site-container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 28px 16px 64px 16px;
+}
+
+/* App Header */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 24px;
+  background: var(--bg-surface);
+  border: 1px solid var(--bg-card-border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle corner bookmark/border accent */
+.app-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, var(--cal-red) 0%, var(--brass-gold) 50%, var(--primary) 100%);
+}
+
+.badge-tag {
+  display: inline-block;
+  padding: 4px 14px;
+  background-color: var(--brass-gold-light);
+  color: var(--brass-gold);
+  border: 1px solid var(--brass-gold);
+  font-weight: 700;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-radius: var(--radius-full);
+  margin-bottom: 10px;
+}
+
+.app-title {
+  font-size: 2.2rem;
+  font-weight: 900;
+  line-height: 1.15;
+  margin-bottom: 6px;
+}
+
+.app-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+/* Dedication Box */
+.dedication-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: var(--math-green-light);
+  border-left: 4px solid var(--primary);
+  border-top: 1px solid var(--bg-border-subtle);
+  border-right: 1px solid var(--bg-border-subtle);
+  border-bottom: 1px solid var(--bg-border-subtle);
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  margin-top: 12px;
+}
+
+.dedication-icon {
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+.dedication-text {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  line-height: 1.55;
+}
+
+.header-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 16px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  font-family: inherit;
+}
+
+.btn-primary {
+  background-color: var(--cal-red);
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(163, 42, 43, 0.3);
+}
+
+.btn-primary:hover {
+  background-color: var(--cal-red-dark);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: var(--bg-muted);
+  color: var(--text-primary);
+  border-color: var(--bg-card-border);
+}
+
+.btn-secondary:hover {
+  background-color: var(--bg-card-border);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--text-primary);
+  border-color: var(--bg-card-border);
+}
+
+.btn-outline:hover {
+  background-color: var(--bg-muted);
+}
+
+.btn-theme {
+  background-color: var(--bg-muted);
+  color: var(--text-primary);
+  border: 1px solid var(--bg-card-border);
+  font-weight: 600;
+}
+
+.btn-theme:hover {
+  border-color: var(--brass-gold);
+  color: var(--brass-gold);
+}
+
+.btn-whatsapp {
+  background-color: #1e7e48;
+  color: #ffffff;
+  border: none;
+}
+
+.btn-whatsapp:hover {
+  background-color: #166037;
+}
+
+.btn-lg {
+  padding: 12px 24px;
+  font-size: 1.05rem;
+}
+
+.btn-sm {
+  padding: 5px 12px;
+  font-size: 0.85rem;
+}
+
+/* Navigation Tabs (Bound Notebook Folders) */
+.nav-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 24px;
+  border-bottom: 2px solid var(--bg-card-border);
+  padding-bottom: 0;
+}
+
+.tab-btn {
+  padding: 11px 18px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-family: var(--font-serif);
+  color: var(--text-muted);
+  background: var(--bg-muted);
+  border: 1px solid var(--bg-card-border);
+  border-bottom: none;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.tab-btn:hover {
+  color: var(--text-primary);
+  background-color: var(--bg-surface);
+}
+
+.tab-btn:focus-visible {
+  outline: 2px solid var(--brass-gold);
+  outline-offset: -2px;
+}
+
+.tab-btn.active {
+  color: var(--cal-red);
+  background-color: var(--bg-surface);
+  border-color: var(--bg-card-border);
+  border-top: 3px solid var(--cal-red);
+  border-bottom: 2px solid var(--bg-surface);
+  margin-bottom: -2px;
+  font-weight: 800;
+}
+
+[data-theme="dark"] .tab-btn.active {
+  color: var(--brass-gold);
+  border-top-color: var(--brass-gold);
+}
+
+/* Tab Panes */
+.tab-pane {
+  display: none;
+}
+
+.tab-pane.active {
+  display: block;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Cards (Math Notebook Pages) */
+.card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--bg-card-border);
+  border-radius: var(--radius-lg);
+  padding: 26px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  gap: 12px;
+  flex-wrap: wrap;
+  border-bottom: 1px dashed var(--bg-border-subtle);
+  padding-bottom: 12px;
+}
+
+.card-header h2 {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.section-desc {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 18px;
+}
+
+/* Grid Calculator */
+.grid-calculator {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 900px) {
+  .grid-calculator {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Presets */
+.preset-group {
+  margin-bottom: 20px;
+}
+
+.section-label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 10px;
+  font-family: var(--font-serif);
+}
+
+.preset-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.preset-btn {
+  background-color: var(--bg-muted);
+  color: var(--text-primary);
+  border: 1px solid var(--bg-card-border);
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-family: inherit;
+}
+
+.preset-btn:hover {
+  background-color: var(--brass-gold-light);
+  border-color: var(--brass-gold);
+  color: var(--brass-gold);
+}
+
+/* Date Inputs Grid */
+.date-input-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr 1.2fr;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+@media (max-width: 540px) {
+  .date-input-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.input-field label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  font-family: var(--font-serif);
+}
+
+.input-field input,
+.input-field select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1.5px solid var(--bg-card-border);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  font-size: 1.05rem;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  transition: border-color var(--transition-fast);
+}
+
+.input-field input:focus,
+.input-field select:focus {
+  outline: none;
+  border-color: var(--brass-gold);
+  box-shadow: 0 0 0 3px var(--brass-gold-light);
+}
+
+.native-picker-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.native-picker-row input[type="date"] {
+  padding: 6px 10px;
+  border: 1px solid var(--bg-card-border);
+  border-radius: var(--radius-md);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  font-family: inherit;
+}
+
+.action-buttons-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* =========================================================
+   AUTHENTIC PHYSICAL DESK CALENDAR LEAF & MODULO-7 WHEEL
+   ========================================================= */
+
+.calendar-desk-display {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* The Classic Wall/Desk Tear-Off Calendar Page */
+.calendar-leaf {
+  background: var(--bg-surface);
+  border: 1px solid var(--bg-card-border);
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.calendar-leaf:hover {
+  transform: translateY(-2px);
+}
+
+/* Top Brass/Leather Calendar Binder */
+.calendar-binder {
+  background: linear-gradient(180deg, #3d2417 0%, #29180f 100%);
+  height: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 36px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.3);
+}
+
+.binder-pin {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffe082 30%, #c49a2a 75%, #664d0d 100%);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.6);
+}
+
+.binder-bracket {
+  width: 16px;
+  height: 6px;
+  border-radius: 3px;
+  background: #a88434;
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.4);
+}
+
+/* Calendar Header Strip */
+.calendar-leaf-header {
+  background-color: var(--cal-red);
+  color: #ffffff;
+  padding: 10px 16px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  border-bottom: 3px solid var(--cal-red-dark);
+}
+
+/* Calendar Page Body */
+.calendar-leaf-body {
+  padding: 22px 16px 18px 16px;
+  text-align: center;
+  background: var(--bg-surface);
+}
+
+.calendar-numeral {
+  font-family: var(--font-serif);
+  font-size: 4.8rem;
+  font-weight: 900;
+  line-height: 0.95;
+  color: var(--cal-red);
+  margin-bottom: 4px;
+  letter-spacing: -0.04em;
+}
+
+[data-theme="dark"] .calendar-numeral {
+  color: var(--cal-red);
+  text-shadow: 0 0 12px rgba(239, 68, 68, 0.3);
+}
+
+.calendar-weekday {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  border-bottom: 2px solid var(--bg-border-subtle);
+  padding-bottom: 8px;
+  display: inline-block;
+  min-width: 65%;
+}
+
+.calendar-seal-stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--brass-gold-light);
+  color: var(--brass-gold);
+  border: 1px solid var(--brass-gold);
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.88rem;
+}
+
+.congruence-symbol {
+  font-size: 1.1rem;
+}
+
+.calendar-leaf-footer {
+  background: var(--bg-muted);
+  border-top: 1px dashed var(--bg-card-border);
+  padding: 8px 14px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  text-align: center;
+  font-style: italic;
+  font-family: var(--font-serif);
+}
+
+/* Modulo 7 Arithmetic Dial Card */
+.modulo-dial-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--bg-card-border);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dial-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.dial-math-symbol {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--brass-gold-light);
+  color: var(--brass-gold);
+  font-weight: 900;
+  font-size: 1.15rem;
+}
+
+.dial-subtitle {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 12px;
+  font-family: var(--font-serif);
+}
+
+.dial-visual-wrap {
+  width: 100%;
+  max-width: 230px;
+  margin: 6px auto;
+}
+
+.modulo-svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.dial-track {
+  fill: none;
+  stroke: var(--bg-card-border);
+  stroke-width: 3;
+  stroke-dasharray: 3 4;
+}
+
+.dial-track-inner {
+  fill: none;
+  stroke: var(--bg-border-subtle);
+  stroke-width: 1;
+}
+
+.dial-pointer-line {
+  stroke: var(--cal-red);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+}
+
+.dial-pointer-head {
+  fill: var(--cal-red);
+}
+
+.dial-center-cap {
+  fill: var(--brass-gold);
+  stroke: #ffffff;
+  stroke-width: 2;
+}
+
+.dial-pointer-group {
+  transition: transform 0.45s cubic-bezier(0.34, 1.35, 0.64, 1);
+  transform-origin: 110px 110px;
+}
+
+/* Modulo Nodes */
+.dial-node .node-circle {
+  fill: var(--bg-surface);
+  stroke: var(--bg-card-border);
+  stroke-width: 2;
+  transition: all var(--transition-fast);
+}
+
+.dial-node .node-num {
+  fill: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+.dial-node .node-name {
+  fill: var(--text-muted);
+  font-family: var(--font-sans);
+  font-size: 7.5px;
+  font-weight: 700;
+  text-anchor: middle;
+}
+
+.dial-node.active .node-circle {
+  fill: var(--cal-red);
+  stroke: var(--brass-gold);
+  stroke-width: 2.5;
+  filter: drop-shadow(0 2px 6px rgba(163, 42, 43, 0.45));
+}
+
+.dial-node.active .node-num,
+.dial-node.active .node-name {
+  fill: #ffffff;
+  font-weight: 800;
+}
+
+.dial-formula-box {
+  background-color: var(--bg-muted);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  width: 100%;
+  margin-top: 14px;
+  border: 1px solid var(--bg-border-subtle);
+  text-align: center;
+}
+
+.dial-formula-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 4px;
+  font-family: var(--font-serif);
+}
+
+.dial-formula-code {
+  font-size: 0.95rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* =========================================================
+   MATHEMATICAL DERIVATION STEPS
+   ========================================================= */
+
+.steps-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.step-card {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--bg-card-border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Red notebook margin stripe */
+.step-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background-color: var(--cal-red);
+}
+
+.step-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+
+.step-number {
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--cal-red);
+  letter-spacing: 0.06em;
+  font-family: var(--font-serif);
+}
+
+[data-theme="dark"] .step-number {
+  color: var(--brass-gold);
+}
+
+.step-title {
+  font-size: 0.98rem;
+  font-weight: 800;
+  font-family: var(--font-serif);
+  color: var(--text-primary);
+}
+
+.step-math {
+  font-size: 1.12rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--text-primary);
+  background-color: var(--bg-muted);
+  border: 1px solid var(--bg-border-subtle);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  margin: 8px 0;
+  text-align: center;
+}
+
+.step-desc {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+.step-value-badge {
+  display: inline-block;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  color: var(--cal-red);
+}
+
+[data-theme="dark"] .step-value-badge {
+  color: var(--brass-gold);
+}
+
+/* Mental Shortcut Box */
+.mental-shortcut-card {
+  background-color: var(--math-green-light);
+  border: 1px solid var(--primary);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+}
+
+.shortcut-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.shortcut-header h3 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--primary);
+  font-family: var(--font-serif);
+}
+
+.mental-shortcut-card p {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+/* Pills & Badges */
+.century-pill, .method-tag, .info-pill {
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  background-color: var(--bg-muted);
+  color: var(--text-secondary);
+  border: 1px solid var(--bg-card-border);
+}
+
+.badge-green {
+  background-color: var(--math-green-light);
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+.badge-blue {
+  background-color: var(--ink-blue-light);
+  color: var(--ink-blue);
+  border-color: var(--ink-blue);
+}
+
+/* Tables (Academic Format) */
+.table-responsive {
+  overflow-x: auto;
+  margin-bottom: 18px;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.95rem;
+}
+
+.data-table th, .data-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--bg-border-subtle);
+}
+
+.data-table th {
+  background-color: var(--bg-muted);
+  font-family: var(--font-serif);
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+}
+
+.data-table tr:hover {
+  background-color: var(--bg-muted);
+}
+
+.code-badge {
+  display: inline-block;
+  min-width: 28px;
+  padding: 2px 8px;
+  text-align: center;
+  font-weight: 800;
+  font-family: var(--font-mono);
+  background-color: var(--brass-gold-light);
+  color: var(--brass-gold);
+  border: 1px solid var(--brass-gold);
+  border-radius: var(--radius-sm);
+}
+
+.highlight-row {
+  background-color: var(--math-green-light);
+}
+
+/* Cheat Sheet Grouped Cards */
+.cheatsheet-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 800px) {
+  .cheatsheet-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.grouped-codes-box {
+  background: var(--bg-muted);
+  border: 1px solid var(--bg-border-subtle);
+  padding: 16px;
+  border-radius: var(--radius-md);
+  margin-top: 14px;
+}
+
+.grouped-codes-box h3 {
+  font-size: 0.98rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.grouped-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.grouped-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.92rem;
+}
+
+.num-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: var(--cal-red);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.82rem;
+  font-family: var(--font-mono);
+}
+
+[data-theme="dark"] .num-chip {
+  background-color: var(--brass-gold);
+  color: #121915;
+}
+
+.note-box {
+  background-color: var(--ink-blue-light);
+  border: 1px solid var(--ink-blue);
+  padding: 14px;
+  border-radius: var(--radius-md);
+  margin: 16px 0;
+  font-size: 0.92rem;
+}
+
+.day-codes-mini {
+  margin-top: 18px;
+}
+
+.day-codes-mini h3 {
+  font-size: 0.98rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.day-code-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.day-chip {
+  background-color: var(--bg-muted);
+  border: 1px solid var(--bg-card-border);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-family: var(--font-mono);
+}
+
+/* =========================================================
+   CLASSROOM QUIZ & CHALLENGE
+   ========================================================= */
+
+.score-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--bg-muted);
+  border: 1px solid var(--bg-card-border);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-weight: 800;
+  font-family: var(--font-mono);
+}
+
+.score-streak {
+  color: var(--warning);
+  font-size: 0.9rem;
+}
+
+.quiz-controls-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.quiz-range-select {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quiz-range-select select {
+  padding: 8px 12px;
+  border: 1px solid var(--bg-card-border);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  font-weight: 600;
+  font-family: inherit;
+}
+
+.quiz-challenge-box {
+  background: var(--bg-surface-elevated);
+  border: 2px dashed var(--brass-gold);
+  border-radius: var(--radius-lg);
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.quiz-target-date {
+  font-size: 2.4rem;
+  font-weight: 900;
+  font-family: var(--font-serif);
+  color: var(--cal-red);
+  margin-bottom: 8px;
+}
+
+[data-theme="dark"] .quiz-target-date {
+  color: var(--brass-gold);
+}
+
+.quiz-prompt {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+  font-family: var(--font-serif);
+}
+
+.day-buttons-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  max-width: 760px;
+  margin: 0 auto 20px auto;
+}
+
+@media (max-width: 680px) {
+  .day-buttons-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.day-choice-btn {
+  background-color: var(--bg-surface);
+  border: 2px solid var(--bg-card-border);
+  color: var(--text-primary);
+  padding: 12px 8px;
+  border-radius: var(--radius-md);
+  font-size: 0.92rem;
+  font-weight: 800;
+  font-family: var(--font-serif);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.day-choice-btn:hover {
+  background-color: var(--brass-gold-light);
+  border-color: var(--brass-gold);
+  color: var(--brass-gold);
+  transform: translateY(-2px);
+}
+
+.day-choice-btn.correct {
+  background-color: var(--success-bg) !important;
+  border-color: var(--success) !important;
+  color: var(--success) !important;
+}
+
+.day-choice-btn.wrong {
+  background-color: var(--danger-bg) !important;
+  border-color: var(--danger) !important;
+  color: var(--danger) !important;
+}
+
+.quiz-feedback {
+  margin: 20px auto;
+  max-width: 600px;
+  padding: 14px 20px;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.quiz-feedback.success {
+  background-color: var(--success-bg);
+  color: var(--success);
+  border: 1px solid var(--success);
+}
+
+.quiz-feedback.error {
+  background-color: var(--danger-bg);
+  color: var(--danger);
+  border: 1px solid var(--danger);
+}
+
+.quiz-hint-accordion {
+  margin-top: 20px;
+}
+
+.quiz-hint-box {
+  background-color: var(--bg-muted);
+  border: 1px solid var(--bg-card-border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-top: 12px;
+  text-align: left;
+  font-size: 0.92rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* =========================================================
+   ACCURACY VERIFICATION ENGINE
+   ========================================================= */
+
+.verifier-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.verifier-select {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.verifier-select select {
+  width: 100%;
+  max-width: 520px;
+  padding: 10px 14px;
+  border: 1px solid var(--bg-card-border);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  font-family: inherit;
+}
+
+.stat-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.metric-card {
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--bg-card-border);
+  border-radius: var(--radius-md);
+  padding: 18px 14px;
+  text-align: center;
+}
+
+.metric-title {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+  font-family: var(--font-serif);
+}
+
+.metric-value {
+  font-size: 1.9rem;
+  font-weight: 900;
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+}
+
+.text-success { color: var(--success) !important; }
+.text-danger { color: var(--danger) !important; }
+.text-info { color: var(--brass-gold) !important; }
+
+.progress-bar-container {
+  width: 100%;
+  height: 10px;
+  background-color: var(--bg-muted);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-bottom: 12px;
+  border: 1px solid var(--bg-border-subtle);
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--brass-gold) 0%, var(--success) 100%);
+  transition: width 0.2s ease;
+}
+
+.progress-status-text {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.edge-cases-box {
+  background-color: var(--bg-muted);
+  border: 1px solid var(--bg-border-subtle);
+  padding: 18px 20px;
+  border-radius: var(--radius-md);
+}
+
+.edge-cases-box h3 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.edge-cases-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.92rem;
+}
+
+/* =========================================================
+   MATHEMATICAL DOCUMENTATION ARTICLE
+   ========================================================= */
+
+.math-article h3 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 22px 0 8px 0;
+  border-bottom: 1px solid var(--bg-border-subtle);
+  padding-bottom: 6px;
+}
+
+.math-article p {
+  margin-bottom: 14px;
+  color: var(--text-secondary);
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+.math-article ul {
+  padding-left: 24px;
+  margin-bottom: 18px;
+  color: var(--text-secondary);
+  font-size: 0.98rem;
+}
+
+.math-article li {
+  margin-bottom: 8px;
+}
+
+/* Footer */
+.app-footer {
+  margin-top: 48px;
+  text-align: center;
+  padding: 24px;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  border-top: 1px solid var(--bg-card-border);
+  font-family: var(--font-serif);
+}
+
+.footer-subtext {
+  font-size: 0.82rem;
+  margin-top: 6px;
+  font-family: var(--font-sans);
+  opacity: 0.85;
+}
+
+/* ================= PRINT STYLESHEET ================= */
+@media print {
+  body {
+    background-color: #fff !important;
+    background-image: none !important;
+    color: #000 !important;
+    font-size: 12pt;
+  }
+
+  .site-container {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+
+  .header-controls,
+  .nav-tabs,
+  .preset-group,
+  .native-picker-row,
+  .action-buttons-row,
+  .quiz-controls-row,
+  .day-buttons-grid,
+  .quiz-hint-accordion,
+  .verifier-controls,
+  #themeToggle,
+  #printBtn {
+    display: none !important;
+  }
+
+  .tab-pane {
+    display: block !important;
+    margin-bottom: 24pt;
+    page-break-inside: avoid;
+  }
+
+  .card {
+    border: 1pt solid #444 !important;
+    box-shadow: none !important;
+    background: #fff !important;
+    page-break-inside: avoid;
+  }
+
+  .calendar-leaf {
+    border: 1pt solid #444 !important;
+    box-shadow: none !important;
+  }
+
+  .calendar-numeral {
+    color: #000 !important;
+  }
+}
